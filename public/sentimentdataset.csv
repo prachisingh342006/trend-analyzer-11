@@ -1,0 +1,31 @@
+id,text,sentiment,timestamp,platform,likes,shares
+1,"I love this product! Best purchase ever!",positive,2024-01-15,Twitter,245,89
+2,"Terrible experience. Would not recommend.",negative,2024-01-15,Facebook,12,3
+3,"It's okay, nothing special really.",neutral,2024-01-16,Instagram,45,8
+4,"Amazing quality and great customer service!",positive,2024-01-16,Twitter,189,67
+5,"Waste of money. Very disappointed.",negative,2024-01-17,Facebook,67,23
+6,"The product works as expected.",neutral,2024-01-17,Twitter,34,5
+7,"Absolutely fantastic! Exceeded my expectations!",positive,2024-01-18,Instagram,312,145
+8,"Poor quality. Broke after one use.",negative,2024-01-18,Facebook,89,34
+9,"Decent product for the price.",neutral,2024-01-19,Twitter,56,12
+10,"Best thing I've bought this year!",positive,2024-01-19,Instagram,423,198
+11,"Not worth the hype. Disappointed.",negative,2024-01-20,Facebook,78,45
+12,"Works fine, no complaints.",neutral,2024-01-20,Twitter,23,4
+13,"Outstanding! Will definitely buy again!",positive,2024-01-21,Instagram,267,112
+14,"Complete garbage. Avoid at all costs.",negative,2024-01-21,Facebook,145,67
+15,"Average product, nothing to write home about.",neutral,2024-01-22,Twitter,34,6
+16,"Incredible value for money!",positive,2024-01-22,Instagram,198,89
+17,"Worst purchase I've made. Regret buying.",negative,2024-01-23,Facebook,123,56
+18,"It's acceptable, does the job.",neutral,2024-01-23,Twitter,45,8
+19,"Highly recommend! Love it so much!",positive,2024-01-24,Instagram,389,167
+20,"Broken on arrival. Poor packaging.",negative,2024-01-24,Facebook,98,43
+21,"Satisfied with the purchase.",neutral,2024-01-25,Twitter,67,14
+22,"Exceptional quality and design!",positive,2024-01-25,Instagram,456,234
+23,"Overpriced and underwhelming.",negative,2024-01-26,Facebook,87,38
+24,"Fair enough for what it is.",neutral,2024-01-26,Twitter,29,5
+25,"Absolutely brilliant! 5 stars!",positive,2024-01-27,Instagram,512,289
+26,"Very poor quality. Do not buy.",negative,2024-01-27,Facebook,134,78
+27,"Neutral feelings about this.",neutral,2024-01-28,Twitter,41,9
+28,"Superb product! Couldn't be happier!",positive,2024-01-28,Instagram,378,145
+29,"Disappointing. Expected much better.",negative,2024-01-29,Facebook,156,89
+30,"It's fine, nothing extraordinary.",neutral,2024-01-29,Twitter,52,11

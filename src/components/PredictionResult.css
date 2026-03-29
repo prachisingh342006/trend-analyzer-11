@@ -96,6 +96,49 @@
   text-decoration: underline;
 }
 
+.model-details-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 28px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.model-details-card h3 {
+  margin: 0 0 18px;
+  color: #22324d;
+  text-align: center;
+}
+
+.model-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.model-details-grid div {
+  background: #f4f8ff;
+  border: 1px solid #dbe5f8;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.model-details-grid span {
+  display: block;
+  color: #60708a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.model-details-grid strong {
+  display: block;
+  margin-top: 8px;
+  color: #22324d;
+  line-height: 1.45;
+}
+
 .prediction-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

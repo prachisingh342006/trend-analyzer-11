@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Dataset Solution - Social Media Trend Predictor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #5b6475;
+      --blue: #1d4ed8;
+      --blue-soft: #eff6ff;
+      --green: #15803d;
+      --green-soft: #f0fdf4;
+      --gold: #a16207;
+      --gold-soft: #fffbeb;
+      --border: #dbe3ef;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 35%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #2563eb 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 44px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      max-width: 900px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .stats-grid,
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card,
+    .section,
+    .info-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .card-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .card-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .section {
+      padding: 28px;
+      margin-top: 22px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      margin-bottom: 14px;
+      color: var(--blue);
+    }
+
+    .section h3 {
+      font-size: 18px;
+      margin: 22px 0 10px;
+      color: #0f172a;
+    }
+
+    .section p {
+      color: #334155;
+      margin-bottom: 10px;
+    }
+
+    .info-box {
+      padding: 18px 20px;
+      background: var(--blue-soft);
+      border-left: 5px solid var(--blue);
+      margin-top: 18px;
+    }
+
+    .info-box strong {
+      color: #0f172a;
+    }
+
+    ul {
+      padding-left: 22px;
+      color: #334155;
+    }
+
+    li { margin-bottom: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 11px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf2ff;
+      color: #153067;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:nth-child(even) td {
+      background: #fbfdff;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .badge-blue {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .badge-green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .badge-gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .highlight-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .highlight {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      background: #fcfdff;
+    }
+
+    .highlight strong {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .highlight span {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: #0f172a;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid,
+      .section-grid,
+      .highlight-list,
+      .two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: min(100% - 20px, 100%); }
+      .hero { padding: 28px 22px; border-radius: 18px; }
+      .stats-grid,
+      .section-grid,
+      .highlight-list,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .section { padding: 22px 18px; }
+      table { display: block; overflow-x: auto; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .hero, .section, .card, .info-box { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="eyebrow">Single-File Dataset Document</div>
+      <h1>Complete Dataset Solution for Social Media Trend Predictor</h1>
+      <p>
+        This document presents the complete dataset solution in one file, including dataset description,
+        schema, preprocessing, exploratory analysis, modeling approach, major findings, limitations,
+        and conclusion for the Social Media Trend Predictor project.
+      </p>
+    </header>
+
+    <section class="stats-grid">
+      <div class="card">
+        <div class="card-label">Total Records</div>
+        <div class="card-value">5,000</div>
+        <div class="card-note">Historical social media posts</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Columns</div>
+        <div class="card-value">11</div>
+        <div class="card-note">Structured features and target metrics</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Date Range</div>
+        <div class="card-value">2 Years</div>
+        <div class="card-note">2022-01-01 to 2023-12-30</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Missing Values</div>
+        <div class="card-value">0</div>
+        <div class="card-note">All columns are complete</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. Formal Dataset Description</h2>
+      <p>
+        The dataset used in this project is a structured collection of historical social media post
+        records designed to support trend analysis and engagement prediction. It contains 5,000 posts
+        collected across four major platforms: Instagram, TikTok, Twitter, and YouTube. Each record
+        captures the platform context, hashtag theme, content format, geographic region, and observed
+        engagement outcomes in terms of views, likes, shares, comments, and engagement category.
+      </p>
+      <p>
+        In the context of this project, the dataset serves as the foundation for both descriptive
+        analytics and predictive modeling. It enables the system to compare an incoming user query
+        with similar historical posts and estimate likely performance before publication. Because the
+        data is categorical as well as numerical, it supports a mixed-feature analytics pipeline that
+        is well suited for similarity-based prediction.
+      </p>
+      <div class="info-box">
+        <strong>Presentation-ready statement:</strong> The dataset provides a balanced multi-platform
+        benchmark for studying how platform selection, content format, hashtag category, and regional
+        context influence social media performance. It is used as the complete analytical base for the
+        forecasting model implemented in this project.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. Dataset Schema</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Column Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Post_ID</td><td>Integer</td><td>Unique identifier of the post</td><td>1</td></tr>
+          <tr><td>Post_Date</td><td>Date</td><td>Date on which the post was published</td><td>2023-08-14</td></tr>
+          <tr><td>Platform</td><td>Categorical</td><td>Social media platform name</td><td>YouTube</td></tr>
+          <tr><td>Hashtag</td><td>Categorical</td><td>Dominant hashtag theme associated with the post</td><td>#Education</td></tr>
+          <tr><td>Content_Type</td><td>Categorical</td><td>Format of the post</td><td>Reel</td></tr>
+          <tr><td>Region</td><td>Categorical</td><td>Geographic market associated with the post</td><td>Japan</td></tr>
+          <tr><td>Views</td><td>Integer</td><td>Total reach or impressions captured as views</td><td>2540000</td></tr>
+          <tr><td>Likes</td><td>Integer</td><td>User appreciation count</td><td>260000</td></tr>
+          <tr><td>Shares</td><td>Integer</td><td>Redistribution count</td><td>51000</td></tr>
+          <tr><td>Comments</td><td>Integer</td><td>User discussion count</td><td>24800</td></tr>
+          <tr><td>Engagement_Level</td><td>Categorical</td><td>Overall engagement class</td><td>High</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Categorical Domain Summary</h3>
+      <p>
+        <span class="badge badge-blue">Platforms: 4</span>
+        <span class="badge badge-blue">Regions: 8</span>
+        <span class="badge badge-blue">Content Types: 6</span>
+        <span class="badge badge-blue">Hashtags: 10</span>
+        <span class="badge badge-blue">Engagement Classes: 3</span>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Values</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Platform</td><td>Instagram, TikTok, Twitter, YouTube</td></tr>
+          <tr><td>Content_Type</td><td>Live Stream, Post, Reel, Shorts, Tweet, Video</td></tr>
+          <tr><td>Region</td><td>Australia, Brazil, Canada, Germany, India, Japan, UK, USA</td></tr>
+          <tr><td>Hashtag</td><td>#Challenge, #Comedy, #Dance, #Education, #Fashion, #Fitness, #Gaming, #Music, #Tech, #Viral</td></tr>
+          <tr><td>Engagement_Level</td><td>High, Medium, Low</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>3. Data Quality and Preprocessing Solution</h2>
+      <div class="two-col">
+        <div>
+          <h3>Data Quality Observations</h3>
+          <ul>
+            <li>The dataset contains exactly 5,000 rows and 11 columns.</li>
+            <li>No missing values were found in any feature column.</li>
+            <li>The date range is consistent and spans from 2022-01-01 to 2023-12-30.</li>
+            <li>All numerical engagement fields are present and suitable for aggregation.</li>
+            <li>Categorical columns are already normalized into a small fixed vocabulary.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Preprocessing Steps Applied in the Project</h3>
+          <ul>
+            <li>CSV parsing is performed in the browser using PapaParse.</li>
+            <li>Rows are converted into a unified app-friendly object structure.</li>
+            <li>Numerical metrics are cast to integer values for analysis.</li>
+            <li>Categorical fields are standardized into platform, hashtag, content type, and region.</li>
+            <li>The cleaned records are used directly for dashboard analysis and local model training.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>Result:</strong> Because the dataset is already complete and structured, the project
+        focuses more on normalization and transformation than on heavy cleaning. This is beneficial for
+        reproducibility and reliable front-end analysis.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. Numerical Summary of the Dataset</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Total</th>
+            <th>Average</th>
+            <th>Minimum</th>
+            <th>Maximum</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Views</td><td>12,470,332,220</td><td>2,494,066.44</td><td>1,266</td><td>4,999,430</td></tr>
+          <tr><td>Likes</td><td>1,257,375,149</td><td>251,475.03</td><td>490</td><td>499,922</td></tr>
+          <tr><td>Shares</td><td>252,597,810</td><td>50,519.56</td><td>52</td><td>99,978</td></tr>
+          <tr><td>Comments</td><td>124,441,969</td><td>24,888.39</td><td>18</td><td>49,993</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Interpretation</h3>
+      <p>
+        The dataset spans a broad engagement scale, from low-volume posts to highly viewed content.
+        The large numerical range makes it appropriate for benchmarking, segmentation, and range-based
+        prediction. Since views are much larger in magnitude than the other engagement metrics, the
+        system handles each target separately instead of relying on one combined raw score.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>5. Distribution Analysis</h2>
+
+      <h3>Platform Distribution</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Platform</th>
+            <th>Posts</th>
+            <th>Share of Dataset</th>
+            <th>Average Views</th>
+            <th>Engagement Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>YouTube</td><td>1,324</td><td>26.5%</td><td>2,545,648</td><td>13.11%</td></tr>
+          <tr><td>TikTok</td><td>1,260</td><td>25.2%</td><td>2,515,015</td><td>12.74%</td></tr>
+          <tr><td>Instagram</td><td>1,212</td><td>24.2%</td><td>2,404,080</td><td>13.83%</td></tr>
+          <tr><td>Twitter</td><td>1,204</td><td>24.1%</td><td>2,506,005</td><td>12.79%</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Engagement Class Distribution</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Count</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Low</td><td>1,729</td><td>34.6%</td></tr>
+          <tr><td>High</td><td>1,673</td><td>33.5%</td></tr>
+          <tr><td>Medium</td><td>1,598</td><td>32.0%</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Best Category Signals</h3>
+      <div class="highlight-list">
+        <div class="highlight">
+          <strong>Top Platform by Average Views</strong>
+          <span>YouTube - 2,545,648 avg views</span>
+        </div>
+        <div class="highlight">
+          <strong>Top Platform by Engagement Rate</strong>
+          <span>Instagram - 13.83%</span>
+        </div>
+        <div class="highlight">
+          <strong>Top Content Type by Average Views</strong>
+          <span>Reel - 2,533,269 avg views</span>
+        </div>
+        <div class="highlight">
+          <strong>Top Hashtag by Average Views</strong>
+          <span>#Fitness - 2,599,391 avg views</span>
+        </div>
+        <div class="highlight">
+          <strong>Top Region by Average Views</strong>
+          <span>USA - 2,595,202 avg views</span>
+        </div>
+        <div class="highlight">
+          <strong>Top Region by Engagement Rate</strong>
+          <span>Japan - 13.78%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>6. Temporal and Pattern-Based Findings</h2>
+      <ul>
+        <li>The dataset covers twenty-four months of posts, which is sufficient for monthly trend analysis.</li>
+        <li>The highest monthly average views appear in February 2022 at approximately 2,667,660 views per post.</li>
+        <li>The strongest monthly engagement rate appears in August 2023 at 14.23%.</li>
+        <li>The average views in the latest six-month window are 3.5% lower than in the previous six-month window, indicating a mild decline in momentum.</li>
+        <li>The strongest emerging opportunity segment identified by the analytics layer is TikTok / Video / Japan, with a 15.11% engagement rate across 40 posts.</li>
+      </ul>
+
+      <h3>Correlation Readout</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric Pair</th>
+            <th>Pearson Correlation</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Views vs Likes</td><td>-0.0032</td><td>Negligible linear relationship</td></tr>
+          <tr><td>Views vs Shares</td><td>0.0131</td><td>Negligible linear relationship</td></tr>
+          <tr><td>Views vs Comments</td><td>-0.0100</td><td>Negligible linear relationship</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        These near-zero correlations suggest that the dataset behaves more like a balanced benchmark than
+        a strongly trend-coupled real-world stream. For project purposes, this is still valuable because it
+        supports controlled comparison across categories, but it also means the model should rely more on
+        categorical similarity than on simple linear relationships between engagement metrics.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>7. Complete Dataset Solution Methodology</h2>
+      <p>
+        The complete dataset solution implemented in this project can be described as a six-stage pipeline:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>What Happens</th>
+            <th>Outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1. Data Loading</td><td>The CSV file is loaded and parsed inside the browser.</td><td>Structured records become available to the app.</td></tr>
+          <tr><td>2. Normalization</td><td>Fields are converted into consistent app-level properties and numeric types.</td><td>The dataset becomes ready for analytics and modeling.</td></tr>
+          <tr><td>3. Exploratory Analysis</td><td>Platform, region, content type, hashtag, and time-based summaries are generated.</td><td>The dashboard can display trends and comparisons.</td></tr>
+          <tr><td>4. Local Model Training</td><td>A weighted k-nearest-neighbors model is trained on the cleaned records.</td><td>The application learns similarity patterns from historical posts.</td></tr>
+          <tr><td>5. Query Matching</td><td>User input is matched with the closest historical posts by platform, hashtag, content type, and region.</td><td>The model identifies support cases for prediction.</td></tr>
+          <tr><td>6. Prediction and Interpretation</td><td>Forecast ranges, engagement class, confidence, and recommendations are generated.</td><td>The user receives a complete content planning result.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>8. Model Usage on the Dataset</h2>
+      <p>
+        The project uses a locally trained weighted k-nearest-neighbors model named <strong>TrendSense KNN</strong>.
+        It is trained directly on the 5,000 cleaned rows and uses weighted categorical similarity across
+        platform, hashtag, content type, and region.
+      </p>
+
+      <h3>Model Configuration</h3>
+      <p>
+        <span class="badge badge-green">Platform: 34%</span>
+        <span class="badge badge-green">Hashtag: 26%</span>
+        <span class="badge badge-green">Content Type: 24%</span>
+        <span class="badge badge-green">Region: 16%</span>
+        <span class="badge badge-gold">Selected k: 12</span>
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Validation Measure</th>
+            <th>Observed Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Training Rows</td><td>5,000</td></tr>
+          <tr><td>Holdout Sample Size</td><td>100</td></tr>
+          <tr><td>Engagement Accuracy</td><td>38.0%</td></tr>
+          <tr><td>Views MAPE</td><td>103.5%</td></tr>
+          <tr><td>Likes MAPE</td><td>86.6%</td></tr>
+          <tr><td>Shares MAPE</td><td>79.2%</td></tr>
+          <tr><td>Comments MAPE</td><td>85.0%</td></tr>
+          <tr><td>Average Neighbor Similarity</td><td>0.877</td></tr>
+          <tr><td>Overall Model Confidence</td><td>73/100</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <strong>Formal interpretation:</strong> The model demonstrates that the dataset can support a
+        working local prediction pipeline, but the validation values also show that this benchmark should
+        be treated as a strategic estimation tool rather than a high-precision production forecasting
+        system. This is an appropriate conclusion for an academic project and strengthens the credibility
+        of the report.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>9. Major Findings</h2>
+      <ul>
+        <li>The dataset is complete, balanced, and suitable for browser-based analytics without extensive cleaning.</li>
+        <li>YouTube contributes the highest average views, while Instagram produces the strongest engagement rate.</li>
+        <li>Reels show the strongest content-format performance by average view count among the available formats.</li>
+        <li>#Fitness and #Education stand out as strong hashtag categories in terms of average performance and AI score.</li>
+        <li>Regional variation is visible, with USA leading in average views and Japan leading in engagement rate.</li>
+        <li>The engagement class distribution is balanced enough to prevent one category from dominating the model.</li>
+        <li>Weak linear correlations indicate that similarity-based matching is more appropriate than simple linear regression assumptions for this dataset.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>10. Limitations of the Dataset Solution</h2>
+      <ul>
+        <li>The dataset does not include follower count, so follower impact is applied as a post-model calibration step.</li>
+        <li>Posting hour, caption text, audio usage, and media quality are not present, limiting fine-grained prediction.</li>
+        <li>Near-zero correlations between engagement metrics suggest the dataset may function more like a benchmark dataset than a fully organic behavioral dataset.</li>
+        <li>The current local model is useful for educational forecasting and dashboard analysis, but the error margins are too high for strict business-grade forecasting claims.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>11. Final Conclusion</h2>
+      <p>
+        The complete dataset solution for the Social Media Trend Predictor demonstrates how a clean,
+        structured, and multi-platform social media dataset can be converted into a full analytical
+        workflow inside a single front-end application. The dataset supports descriptive analysis,
+        segmentation, dashboard visualization, and local machine-learning-based prediction without the
+        need for backend infrastructure.
+      </p>
+      <p>
+        In formal terms, this dataset is suitable for an academic project because it enables the
+        implementation of end-to-end data handling: loading, preprocessing, exploration, comparison,
+        modeling, and interpretation. Although the predictive model should be used with caution due to
+        moderate validation performance, the overall dataset solution is complete, coherent, and
+        presentation-ready.
+      </p>
+
+      <div class="footer-note">
+        This file is intended to serve as the one-file dataset solution document for project submission,
+        viva explanation, and formal presentation use.
+      </div>
+    </section>
+  </div>
+</body>
+</html>

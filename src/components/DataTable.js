@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './DataTable.css';
+import researchPapers from '../data/researchPapers';
+import { getResearchPaperForPost } from '../utils/analytics';
 
 const DataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,9 +18,9 @@ const DataTable = ({ data }) => {
 
   const getEngagementEmoji = (level) => {
     switch(level) {
-      case 'High': return '�';
+      case 'High': return '🔥';
       case 'Medium': return '⚡';
-      case 'Low': return '�';
+      case 'Low': return '📊';
       default: return '❓';
     }
   };
@@ -47,28 +49,45 @@ const DataTable = ({ data }) => {
               <th>Shares</th>
               <th>Comments</th>
               <th>Engagement</th>
+              <th>Research Paper</th>
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((item, index) => (
-              <tr key={index}>
-                <td className="post-id-cell">{item.postId}</td>
-                <td>{item.postDate}</td>
-                <td className="platform-cell">{item.platform}</td>
-                <td className="hashtag-cell">{item.hashtag}</td>
-                <td>{item.contentType}</td>
-                <td>{item.region}</td>
-                <td className="number-cell">{formatNumber(item.views)}</td>
-                <td className="number-cell">❤️ {formatNumber(item.likes)}</td>
-                <td className="number-cell">🔄 {formatNumber(item.shares)}</td>
-                <td className="number-cell">💬 {formatNumber(item.comments)}</td>
-                <td>
-                  <span className={getEngagementClass(item.engagementLevel)}>
-                    {getEngagementEmoji(item.engagementLevel)} {item.engagementLevel}
-                  </span>
-                </td>
-              </tr>
-            ))}
+            {currentItems.map((item, index) => {
+              const paper = getResearchPaperForPost(item, researchPapers);
+
+              return (
+                <tr key={index}>
+                  <td className="post-id-cell">{item.postId}</td>
+                  <td>{item.postDate}</td>
+                  <td className="platform-cell">{item.platform}</td>
+                  <td className="hashtag-cell">{item.hashtag}</td>
+                  <td>{item.contentType}</td>
+                  <td>{item.region}</td>
+                  <td className="number-cell">{formatNumber(item.views)}</td>
+                  <td className="number-cell">❤️ {formatNumber(item.likes)}</td>
+                  <td className="number-cell">🔄 {formatNumber(item.shares)}</td>
+                  <td className="number-cell">💬 {formatNumber(item.comments)}</td>
+                  <td>
+                    <span className={getEngagementClass(item.engagementLevel)}>
+                      {getEngagementEmoji(item.engagementLevel)} {item.engagementLevel}
+                    </span>
+                  </td>
+                  <td className="research-paper-cell">
+                    {paper ? (
+                      <>
+                        <a href={paper.sourceUrl} target="_blank" rel="noreferrer">
+                          {paper.title}
+                        </a>
+                        <span>{paper.source}</span>
+                      </>
+                    ) : (
+                      <span>No paper mapped</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research Paper Analysis</title>
+    <style>
+      :root {
+        --bg-start: #16315f;
+        --bg-end: #3a6fb6;
+        --panel: rgba(255, 255, 255, 0.95);
+        --line: #dbe6fb;
+        --text: #22324d;
+        --muted: #60708a;
+        --accent: #2958a5;
+        --soft: #edf4ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 32%),
+          linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      }
+
+      main {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 40px 20px 56px;
+      }
+
+      .hero,
+      .panel {
+        background: var(--panel);
+        border-radius: 24px;
+        box-shadow: 0 18px 42px rgba(17, 30, 57, 0.18);
+      }
+
+      .hero {
+        padding: 36px;
+        margin-bottom: 24px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        margin: 16px 0 14px;
+        font-size: 2.6rem;
+      }
+
+      .hero p,
+      .panel p,
+      li {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .metric-grid,
+      .summary-grid,
+      .paper-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        margin-top: 24px;
+      }
+
+      .metric-card,
+      .summary-card,
+      .paper-card {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: white;
+      }
+
+      .metric-card,
+      .summary-card {
+        padding: 20px;
+      }
+
+      .metric-card span,
+      .summary-card span,
+      .paper-source {
+        display: block;
+        color: #5b76a8;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      .metric-card strong,
+      .summary-card strong {
+        display: block;
+        margin-top: 10px;
+        font-size: 1.7rem;
+      }
+
+      .panel {
+        padding: 32px;
+        margin-bottom: 24px;
+      }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.8rem;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      thead {
+        background: #22324d;
+        color: white;
+      }
+
+      th,
+      td {
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid #edf1f7;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .paper-grid {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .paper-card {
+        padding: 22px;
+        background: linear-gradient(180deg, #f7faff, #eef4ff);
+      }
+
+      .paper-card h3 {
+        margin: 10px 0 12px;
+        font-size: 1.1rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .actions a {
+        flex: 1;
+        text-align: center;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: white;
+      }
+
+      ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 768px) {
+        main {
+          padding: 24px 14px 40px;
+        }
+
+        .hero,
+        .panel {
+          padding: 24px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <span class="eyebrow">Research-backed analysis</span>
+        <h1>Research Paper Analysis for the Social Media Trend Dashboard</h1>
+        <p>
+          This page explains how the five downloaded research papers support the AI
+          model, the dataset dashboard, and the interpretation of the social media
+          trend dataset used in the app.
+        </p>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <span>Dataset size</span>
+            <strong>5,000 posts</strong>
+          </article>
+          <article class="metric-card">
+            <span>Platform coverage</span>
+            <strong>4 platforms</strong>
+          </article>
+          <article class="metric-card">
+            <span>Total views</span>
+            <strong>12.5B</strong>
+          </article>
+          <article class="metric-card">
+            <span>Avg engagement rate</span>
+            <strong>13.11%</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>How the papers are used</h2>
+        <div class="summary-grid">
+          <article class="summary-card">
+            <span>AI model layer</span>
+            <strong>Weighted engagement scoring</strong>
+            <p>
+              The dashboard ranks segments using views, likes, shares, comments,
+              engagement rate, and sample support, which aligns closely with the
+              popularity-prediction and graph-based ranking ideas in the papers.
+            </p>
+          </article>
+          <article class="summary-card">
+            <span>Trend monitoring</span>
+            <strong>Time-series and momentum</strong>
+            <p>
+              Monthly view patterns, recent momentum shifts, and platform-specific
+              trend changes are grounded in the temporal and early-detection papers.
+            </p>
+          </article>
+          <article class="summary-card">
+            <span>Research traceability</span>
+            <strong>Source and PDF for every paper</strong>
+            <p>
+              Each paper below includes the original source page and a local PDF
+              download, so the analysis is explainable and presentation-ready.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Research matrix</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Main contribution</th>
+              <th>Dashboard connection</th>
+              <th>Source</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Predicting Tweet Engagement with Graph Neural Networks</strong><br />Marco Arazzi et al.</td>
+              <td>Uses graph neural networks to improve engagement prediction for Twitter posts.</td>
+              <td>Supports the AI model ranking layer and segment-level scoring logic.</td>
+              <td><a href="https://arxiv.org/abs/2305.10103" target="_blank" rel="noreferrer">arXiv source</a></td>
+              <td><a href="/research-papers/predicting-tweet-engagement-gnn.pdf" target="_blank" rel="noreferrer">Open PDF</a></td>
+            </tr>
+            <tr>
+              <td><strong>Real-Time Classification of Twitter Trends</strong><br />Arkaitz Zubiaga et al.</td>
+              <td>Shows how early social signals classify different trend categories in real time.</td>
+              <td>Supports the trend charts, fast-moving topic detection, and live monitoring angle.</td>
+              <td><a href="https://arxiv.org/abs/1403.1451" target="_blank" rel="noreferrer">arXiv source</a></td>
+              <td><a href="/research-papers/real-time-classification-twitter-trends.pdf" target="_blank" rel="noreferrer">Open PDF</a></td>
+            </tr>
+            <tr>
+              <td><strong>DFW-PP: Dynamic Feature Weighting based Popularity Prediction for Social Media Content</strong><br />Viswanatha Reddy G et al.</td>
+              <td>Explains dynamic feature weighting for social-media popularity prediction.</td>
+              <td>Supports the weighted scoring formula and top-opportunity segment leaderboard.</td>
+              <td><a href="https://arxiv.org/abs/2110.08510" target="_blank" rel="noreferrer">arXiv source</a></td>
+              <td><a href="/research-papers/dfw-pp-popularity-prediction.pdf" target="_blank" rel="noreferrer">Open PDF</a></td>
+            </tr>
+            <tr>
+              <td><strong>TWSSenti: A Novel Hybrid Framework for Topic-Wise Sentiment Analysis on Social Media Using Transformer Models</strong><br />Aish Albladi et al.</td>
+              <td>Uses transformer models for more robust social-media sentiment analysis.</td>
+              <td>Supports the sentiment-aware extension and the research-paper mapping for text-heavy rows.</td>
+              <td><a href="https://arxiv.org/abs/2504.09896" target="_blank" rel="noreferrer">arXiv source</a></td>
+              <td><a href="/research-papers/twssenti-topic-wise-sentiment-analysis.pdf" target="_blank" rel="noreferrer">Open PDF</a></td>
+            </tr>
+            <tr>
+              <td><strong>SMTPD: A New Benchmark for Temporal Prediction of Social Media Popularity</strong><br />Yijie Xu et al.</td>
+              <td>Builds a benchmark for temporal popularity prediction with time alignment.</td>
+              <td>Supports the month-by-month dashboard, temporal forecasting, and long-window momentum analysis.</td>
+              <td><a href="https://arxiv.org/abs/2503.04446" target="_blank" rel="noreferrer">arXiv source</a></td>
+              <td><a href="/research-papers/smtpd-social-media-popularity-benchmark.pdf" target="_blank" rel="noreferrer">Open PDF</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>Paper-by-paper analysis</h2>
+        <div class="paper-grid">
+          <article class="paper-card">
+            <span class="paper-source">arXiv 2023</span>
+            <h3>Predicting Tweet Engagement with Graph Neural Networks</h3>
+            <p>
+              Best fit for the app's AI model layer because it frames engagement as a
+              prediction problem over related posts rather than isolated records.
+            </p>
+            <div class="actions">
+              <a href="https://arxiv.org/abs/2305.10103" target="_blank" rel="noreferrer">Source</a>
+              <a href="/research-papers/predicting-tweet-engagement-gnn.pdf" target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          </article>
+
+          <article class="paper-card">
+            <span class="paper-source">arXiv 2014</span>
+            <h3>Real-Time Classification of Twitter Trends</h3>
+            <p>
+              Useful for understanding which dashboard metrics are early indicators of
+              fast-moving social trends and viral shifts.
+            </p>
+            <div class="actions">
+              <a href="https://arxiv.org/abs/1403.1451" target="_blank" rel="noreferrer">Source</a>
+              <a href="/research-papers/real-time-classification-twitter-trends.pdf" target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          </article>
+
+          <article class="paper-card">
+            <span class="paper-source">arXiv 2021</span>
+            <h3>DFW-PP</h3>
+            <p>
+              Most relevant for the dashboard's weighted scoring logic because it
+              justifies combining several engagement features instead of trusting one.
+            </p>
+            <div class="actions">
+              <a href="https://arxiv.org/abs/2110.08510" target="_blank" rel="noreferrer">Source</a>
+              <a href="/research-papers/dfw-pp-popularity-prediction.pdf" target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          </article>
+
+          <article class="paper-card">
+            <span class="paper-source">arXiv 2025</span>
+            <h3>TWSSenti</h3>
+            <p>
+              Adds a modern transformer-based sentiment perspective that is useful for
+              future model upgrades and for explaining text-sensitive rows.
+            </p>
+            <div class="actions">
+              <a href="https://arxiv.org/abs/2504.09896" target="_blank" rel="noreferrer">Source</a>
+              <a href="/research-papers/twssenti-topic-wise-sentiment-analysis.pdf" target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          </article>
+
+          <article class="paper-card">
+            <span class="paper-source">arXiv 2025</span>
+            <h3>SMTPD</h3>
+            <p>
+              Strongest reference for the dashboard's month-level trend analysis,
+              momentum tracking, and temporal popularity interpretation.
+            </p>
+            <div class="actions">
+              <a href="https://arxiv.org/abs/2503.04446" target="_blank" rel="noreferrer">Source</a>
+              <a href="/research-papers/smtpd-social-media-popularity-benchmark.pdf" target="_blank" rel="noreferrer">PDF</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Key conclusions</h2>
+        <ul>
+          <li>The dataset dashboard is no longer just descriptive; it now has an explicit AI-model interpretation layer.</li>
+          <li>The five downloaded papers give clear academic support for scoring, ranking, trend monitoring, and temporal forecasting.</li>
+          <li>The app now exposes both the original source pages and local PDF downloads, making the research section easy to cite and present.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

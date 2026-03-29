@@ -41,6 +41,7 @@
   padding: 15px;
   border-bottom: 1px solid #eee;
   color: #333;
+  vertical-align: top;
 }
 
 .data-table tbody tr {
@@ -100,6 +101,25 @@
 .engagement-badge.low {
   background: #e0e0e0;
   color: #616161;
+}
+
+.research-paper-cell {
+  min-width: 220px;
+}
+
+.research-paper-cell a {
+  display: block;
+  color: #2958a5;
+  font-weight: 700;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.research-paper-cell span {
+  display: inline-block;
+  margin-top: 6px;
+  color: #667386;
+  font-size: 0.85rem;
 }
 
 .pagination {

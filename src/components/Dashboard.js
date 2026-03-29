@@ -49,7 +49,7 @@ const Dashboard = ({ data }) => {
     {
       title: 'Total Comments',
       value: formatNumber(totalComments),
-      icon: '�',
+      icon: '💬',
       color: '#ff9800'
     },
     {
@@ -61,7 +61,7 @@ const Dashboard = ({ data }) => {
     {
       title: 'High Engagement',
       value: highEngagement,
-      icon: '�',
+      icon: '🔥',
       color: '#f44336'
     },
     {
@@ -73,7 +73,7 @@ const Dashboard = ({ data }) => {
     {
       title: 'Low Engagement',
       value: lowEngagement,
-      icon: '�',
+      icon: '📊',
       color: '#607d8b'
     }
   ];

@@ -15,7 +15,21 @@ const PredictionResult = ({ prediction, onReset }) => {
     );
   }
 
-  const { userInput, totalSimilarPosts, predictions, predictedEngagement, engagementProbability, engagementRate, topPosts, followerRatio, followerImpact, growthRecommendations, profileAnalysis } = prediction;
+  const {
+    userInput,
+    totalSimilarPosts,
+    predictions,
+    predictedEngagement,
+    engagementProbability,
+    engagementRate,
+    topPosts,
+    followerRatio,
+    followerImpact,
+    growthRecommendations,
+    profileAnalysis,
+    modelDetails,
+    modelConfidence
+  } = prediction;
 
   const formatNumber = (num) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -80,6 +94,38 @@ const PredictionResult = ({ prediction, onReset }) => {
           </p>
         )}
       </div>
+
+      {modelDetails && (
+        <div className="model-details-card">
+          <h3>AI Model Used</h3>
+          <div className="model-details-grid">
+            <div>
+              <span>Model</span>
+              <strong>{modelDetails.name}</strong>
+            </div>
+            <div>
+              <span>Family</span>
+              <strong>{modelDetails.family}</strong>
+            </div>
+            <div>
+              <span>Training Rows</span>
+              <strong>{modelDetails.trainedOn.toLocaleString()}</strong>
+            </div>
+            <div>
+              <span>Selected k</span>
+              <strong>{modelDetails.k}</strong>
+            </div>
+            <div>
+              <span>Holdout Accuracy</span>
+              <strong>{modelDetails.validation.engagementAccuracy}%</strong>
+            </div>
+            <div>
+              <span>Prediction Confidence</span>
+              <strong>{modelConfidence}/100</strong>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="prediction-summary">
         <div className="summary-card main-prediction">
@@ -268,7 +314,10 @@ const PredictionResult = ({ prediction, onReset }) => {
               </div>
               <div className="profile-info">
                 <h4>@{profileAnalysis.username}</h4>
-                <p>{profileAnalysis.platform} Creator • {profileAnalysis.accountAge} months active</p>
+                <p>
+                  {profileAnalysis.profileModeLabel} • {profileAnalysis.platform} • based on{' '}
+                  {profileAnalysis.userStats.supportCount} support posts
+                </p>
                 <div className="performance-badge" data-level={profileAnalysis.comparison.performanceLevel.toLowerCase().replace(' ', '-')}>
                   {profileAnalysis.comparison.performanceEmoji} {profileAnalysis.comparison.performanceLevel}
                 </div>
@@ -282,9 +331,9 @@ const PredictionResult = ({ prediction, onReset }) => {
                 <span className="stat-label">Followers</span>
               </div>
               <div className="user-stat-card">
-                <span className="stat-icon">📝</span>
-                <span className="stat-value">{profileAnalysis.userStats.totalPosts}</span>
-                <span className="stat-label">Total Posts</span>
+                <span className="stat-icon">🧠</span>
+                <span className="stat-value">{profileAnalysis.userStats.supportCount}</span>
+                <span className="stat-label">Support Posts</span>
               </div>
               <div className="user-stat-card">
                 <span className="stat-icon">👁️</span>
@@ -302,9 +351,9 @@ const PredictionResult = ({ prediction, onReset }) => {
                 <span className="stat-label">Engagement Rate</span>
               </div>
               <div className="user-stat-card">
-                <span className="stat-icon">📅</span>
-                <span className="stat-value">{profileAnalysis.userStats.avgPostsPerWeek}</span>
-                <span className="stat-label">Posts/Week</span>
+                <span className="stat-icon">🎯</span>
+                <span className="stat-value">{formatNumber(profileAnalysis.userStats.baselineFollowers)}</span>
+                <span className="stat-label">Baseline Followers</span>
               </div>
             </div>
           </div>

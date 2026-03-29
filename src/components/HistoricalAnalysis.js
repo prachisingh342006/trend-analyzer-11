@@ -1,113 +1,128 @@
 import React from 'react';
 import './HistoricalAnalysis.css';
+import Dashboard from './Dashboard';
+import TrendCharts from './TrendCharts';
+import PlatformAnalysis from './PlatformAnalysis';
+import EngagementAnalysis from './EngagementAnalysis';
+import AIModelInsights from './AIModelInsights';
+import ResearchPaperLibrary from './ResearchPaperLibrary';
+import DataTable from './DataTable';
+import researchPapers from '../data/researchPapers';
+import { buildDatasetAnalysis, formatCompactNumber } from '../utils/analytics';
 
-const HistoricalAnalysis = ({ data }) => {
-  const totalPosts = data.length;
-  
-  // Platform distribution
-  const platformCounts = data.reduce((acc, post) => {
-    acc[post.platform] = (acc[post.platform] || 0) + 1;
-    return acc;
-  }, {});
+const HistoricalAnalysis = ({ data, model }) => {
+  const analysis = buildDatasetAnalysis(data, researchPapers, model);
+  const { totals, platformPerformance, regionPerformance, contentTypePerformance, monthlyTrend } = analysis;
 
-  // Engagement distribution
-  const engagementCounts = data.reduce((acc, post) => {
-    acc[post.engagementLevel] = (acc[post.engagementLevel] || 0) + 1;
-    return acc;
-  }, {});
-
-  // Top hashtags
-  const hashtagCounts = data.reduce((acc, post) => {
-    acc[post.hashtag] = (acc[post.hashtag] || 0) + 1;
-    return acc;
-  }, {});
-
-  const topHashtags = Object.entries(hashtagCounts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+  const highlightCards = [
+    {
+      label: 'Top Platform',
+      value: platformPerformance[0]?.label || 'Pending',
+      detail: platformPerformance[0]
+        ? `${formatCompactNumber(platformPerformance[0].avgViews)} avg views per post`
+        : 'Platform ranking appears after data loads.'
+    },
+    {
+      label: 'Best Content Type',
+      value: contentTypePerformance[0]?.label || 'Pending',
+      detail: contentTypePerformance[0]
+        ? `${contentTypePerformance[0].aiScore}/100 AI score`
+        : 'Content-type scoring appears after data loads.'
+    },
+    {
+      label: 'Top Region',
+      value: regionPerformance[0]?.label || 'Pending',
+      detail: regionPerformance[0]
+        ? `${regionPerformance[0].engagementRate}% engagement rate`
+        : 'Regional analysis appears after data loads.'
+    },
+    {
+      label: 'Latest Trend Window',
+      value: monthlyTrend[monthlyTrend.length - 1]?.label || 'Pending',
+      detail: monthlyTrend[monthlyTrend.length - 1]
+        ? `${formatCompactNumber(monthlyTrend[monthlyTrend.length - 1].views)} views in the latest month`
+        : 'Time-series analysis appears after data loads.'
+    }
+  ];
 
   return (
-    <div className="historical-analysis">
-      <h2>📊 Historical Dataset Overview</h2>
-      <p className="subtitle">Understanding past trends to predict future performance</p>
-
-      <div className="stats-grid">
-        <div className="stat-box">
-          <div className="stat-icon">📝</div>
-          <div className="stat-number">{totalPosts.toLocaleString()}</div>
-          <div className="stat-label">Total Posts Analyzed</div>
+    <section className="historical-analysis">
+      <div className="analysis-hero">
+        <div>
+          <span className="analysis-kicker">Dataset Intelligence</span>
+          <h2>AI Model and Dataset Analysis Dashboard</h2>
+          <p className="subtitle">
+            A research-backed dashboard for the full social media dataset, combining
+            descriptive analytics, AI scoring, and downloadable paper references.
+          </p>
         </div>
 
-        <div className="stat-box">
-          <div className="stat-icon">📱</div>
-          <div className="stat-number">{Object.keys(platformCounts).length}</div>
-          <div className="stat-label">Platforms</div>
-        </div>
-
-        <div className="stat-box">
-          <div className="stat-icon">#️⃣</div>
-          <div className="stat-number">{Object.keys(hashtagCounts).length}</div>
-          <div className="stat-label">Unique Hashtags</div>
-        </div>
-
-        <div className="stat-box">
-          <div className="stat-icon">🌍</div>
-          <div className="stat-number">{new Set(data.map(d => d.region)).size}</div>
-          <div className="stat-label">Regions</div>
-        </div>
-      </div>
-
-      <div className="info-sections">
-        <div className="info-section">
-          <h3>🔥 Engagement Levels in Dataset</h3>
-          <div className="engagement-bars">
-            <div className="bar-item">
-              <span>High</span>
-              <div className="bar-container">
-                <div 
-                  className="bar high" 
-                  style={{ width: `${(engagementCounts.High / totalPosts) * 100}%` }}
-                ></div>
-              </div>
-              <span>{engagementCounts.High} posts</span>
-            </div>
-            <div className="bar-item">
-              <span>Medium</span>
-              <div className="bar-container">
-                <div 
-                  className="bar medium" 
-                  style={{ width: `${(engagementCounts.Medium / totalPosts) * 100}%` }}
-                ></div>
-              </div>
-              <span>{engagementCounts.Medium} posts</span>
-            </div>
-            <div className="bar-item">
-              <span>Low</span>
-              <div className="bar-container">
-                <div 
-                  className="bar low" 
-                  style={{ width: `${(engagementCounts.Low / totalPosts) * 100}%` }}
-                ></div>
-              </div>
-              <span>{engagementCounts.Low} posts</span>
-            </div>
+        <div className="hero-metrics">
+          <div className="hero-metric-card">
+            <span>Total Dataset Views</span>
+            <strong>{formatCompactNumber(totals.totalViews)}</strong>
           </div>
-        </div>
-
-        <div className="info-section">
-          <h3>🏆 Top 5 Trending Hashtags</h3>
-          <div className="hashtag-list">
-            {topHashtags.map(([hashtag, count], index) => (
-              <div key={index} className="hashtag-item">
-                <span className="hashtag-rank">#{index + 1}</span>
-                <span className="hashtag-name">{hashtag}</span>
-                <span className="hashtag-count">{count.toLocaleString()} posts</span>
-              </div>
-            ))}
+          <div className="hero-metric-card">
+            <span>Average Engagement Rate</span>
+            <strong>{totals.avgEngagementRate}%</strong>
+          </div>
+          <div className="hero-metric-card">
+            <span>AI Confidence</span>
+            <strong>{analysis.aiModel.confidenceScore}/100</strong>
           </div>
         </div>
       </div>
-    </div>
+
+      <Dashboard data={data} />
+
+      <div className="analysis-meta-grid">
+        <article className="meta-card">
+          <span>Posts</span>
+          <strong>{totals.totalPosts.toLocaleString()}</strong>
+          <p>Historical posts loaded from the cleaned trend dataset.</p>
+        </article>
+        <article className="meta-card">
+          <span>Coverage</span>
+          <strong>
+            {totals.platformCount} platforms / {totals.regionCount} regions
+          </strong>
+          <p>Cross-platform and cross-region coverage for comparative analysis.</p>
+        </article>
+        <article className="meta-card">
+          <span>Interactions</span>
+          <strong>{formatCompactNumber(totals.totalInteractions)}</strong>
+          <p>Likes, shares, and comments pooled into one engagement lens.</p>
+        </article>
+        <article className="meta-card">
+          <span>Hashtags</span>
+          <strong>{totals.hashtagCount}</strong>
+          <p>Distinct hashtag themes available for trend and content analysis.</p>
+        </article>
+      </div>
+
+      <div className="highlight-grid">
+        {highlightCards.map((card) => (
+          <article key={card.label} className="highlight-card">
+            <span>{card.label}</span>
+            <strong>{card.value}</strong>
+            <p>{card.detail}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="analysis-stack">
+        <TrendCharts data={data} />
+
+        <div className="dual-chart-grid">
+          <PlatformAnalysis data={data} />
+          <EngagementAnalysis data={data} />
+        </div>
+      </div>
+
+      <AIModelInsights analysis={analysis} />
+      <ResearchPaperLibrary papers={researchPapers} evidenceRows={analysis.evidenceRows} />
+      <DataTable data={data} />
+    </section>
   );
 };
 
